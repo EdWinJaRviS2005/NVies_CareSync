@@ -54,4 +54,7 @@ logs/
 dist/
 build/
 
-frontend 
+
+frontend/public
+frontend/components
+frontend/lib
