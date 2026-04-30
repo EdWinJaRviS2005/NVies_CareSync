@@ -844,11 +844,16 @@ export async function deletePdfDocument(docId: string) {
 // Notifications
 // ---------------------------------------------------------------------------
 
-export async function listNotifications(patientId?: string) {
+export async function listNotifications(patientId?: string, doctorId?: string) {
   const params = new URLSearchParams();
   if (patientId) params.set('patient_id', patientId);
+  if (doctorId) params.set('doctor_id', doctorId);
   const qs = params.toString();
   const response = await fetch(`${API_URL}/api/notifications${qs ? `?${qs}` : ''}`);
+  if (!response.ok) {
+    const detail = await response.text().catch(() => response.statusText);
+    throw new Error(`Failed to fetch notifications (${response.status}): ${detail}`);
+  }
   return response.json();
 }
 
