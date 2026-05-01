@@ -1,0 +1,13 @@
+.env
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.ruff_cache
+fetch_logs.py
+fetch_raw.py
+fetch_all_calls.py
+repair_endpoints.py
+run.py

@@ -4,6 +4,7 @@ MedTrigger — FastAPI application entry point.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.core.config import settings
 from app.api.endpoints import router
 
 app = FastAPI(
@@ -12,19 +13,13 @@ app = FastAPI(
     version="0.1.0",
 )
 
-# ---------------------------------------------------------------------------
-# CORS — allow local Next.js dev server and any deployed frontend
-# ---------------------------------------------------------------------------
+cors_origins = [origin.strip() for origin in settings.cors_origins.split(",") if origin.strip()]
+cors_origin_regex = settings.cors_origin_regex or None
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001",
-        "https://care-sync-ai-delta.vercel.app",
-        "https://*.vercel.app",
-    ],
+    allow_origins=cors_origins,
+    allow_origin_regex=cors_origin_regex,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

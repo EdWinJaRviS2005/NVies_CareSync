@@ -28,6 +28,14 @@ class Settings(BaseSettings):
 
     # App
     app_base_url: str = "http://localhost:8000"
+    cors_origins: str = (
+        "http://localhost:3000,"
+        "http://localhost:3001,"
+        "http://127.0.0.1:3000,"
+        "http://127.0.0.1:3001,"
+        "https://care-sync-ai-delta.vercel.app"
+    )
+    cors_origin_regex: str = r"https://.*\.vercel\.app"
 
 
 settings = Settings()
